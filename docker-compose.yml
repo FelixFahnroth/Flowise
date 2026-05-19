@@ -3,18 +3,18 @@ version: '3.8'
 services:
   flowise:
     image: flowiseai/flowise:latest
+    container_name: flowise_migration
     restart: always
     environment:
       - PORT=3000
-      #- FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
-      #- FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
-      # Diese Variablen stellen sicher, dass Flowise im gemounteten Ordner arbeitet
+      - FLOWISE_USERNAME=admin
+      - FLOWISE_PASSWORD=dein_passwort_hier
       - DATABASE_PATH=/root/.flowise
       - APIROOT=/root/.flowise
-      - LOG_PATH=/root/.flowise/logs
-      - BLOB_STORAGE_PATH=/root/.flowise/storage
+    # Port 3000 direkt auf dem Server öffnen, um den Proxy zu umgehen
+    ports:
+      - "3000:3000"
     volumes:
-      # Wir verbinden dein 2.5GB Verzeichnis direkt mit dem Flowise-Container
       - /opt/flowise/data:/root/.flowise
     networks:
       - dokploy-network
