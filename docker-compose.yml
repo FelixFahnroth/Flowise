@@ -6,8 +6,8 @@ services:
     restart: always
     environment:
       - PORT=3000
-      - FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
-      - FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
+      #- FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
+      #- FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
       # Diese Variablen stellen sicher, dass Flowise im gemounteten Ordner arbeitet
       - DATABASE_PATH=/root/.flowise
       - APIROOT=/root/.flowise
