@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    restart: always
+    environment:
+      - PORT=3000
+      - FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
+      - FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
+    volumes:
+      - /root/.flowise:/root/.flowise
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
