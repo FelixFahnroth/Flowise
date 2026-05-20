@@ -3,12 +3,13 @@ services:
     image: flowiseai/flowise:latest
     restart: always
     environment:
-      - PORT=4141
+      - PORT=3000
       - FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
       - FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
       - DATABASE_PATH=/root/.flowise
       - APIROOT=/root/.flowise
-    # DIE PORTS SEKTION WURDE ENTFERNT -> ZUGRIFF NUR NOCH ÜBER PROXY
+      # Wichtig für den Proxy:
+      - HOST=0.0.0.0
     volumes:
       - /opt/flowise/data:/root/.flowise
     networks:
