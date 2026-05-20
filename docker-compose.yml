@@ -3,15 +3,12 @@ services:
     image: flowiseai/flowise:latest
     restart: always
     environment:
-      # Wir sagen Flowise, dass es intern auf 4141 hören soll
       - PORT=4141
       - FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
       - FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
       - DATABASE_PATH=/root/.flowise
       - APIROOT=/root/.flowise
-    ports:
-      # Wir öffnen den Port auch direkt am Server (Host:Container)
-      - "4141:4141"
+    # DIE PORTS SEKTION WURDE ENTFERNT -> ZUGRIFF NUR NOCH ÜBER PROXY
     volumes:
       - /opt/flowise/data:/root/.flowise
     networks:
