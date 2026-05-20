@@ -1,19 +1,26 @@
 services:
   flowise:
     image: flowiseai/flowise:latest
+    container_name: flowise-app
     restart: always
     environment:
       - PORT=3000
+      - HOST=0.0.0.0
       - FLOWISE_USERNAME=${FLOWISE_ADMIN_USER}
       - FLOWISE_PASSWORD=${FLOWISE_ADMIN_PASSWORD}
       - DATABASE_PATH=/root/.flowise
       - APIROOT=/root/.flowise
-      # Wichtig für den Proxy:
-      - HOST=0.0.0.0
     volumes:
       - /opt/flowise/data:/root/.flowise
     networks:
       - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.flowise-router.rule=Host(`flowise.fahnroth.net`)"
+      - "traefik.http.routers.flowise-router.entrypoints=websecure"
+      - "traefik.http.routers.flowise-router.tls=true"
+      - "traefik.http.routers.flowise-router.tls.certresolver=letsencrypt"
+      - "traefik.http.services.flowise-service.loadbalancer.server.port=3000"
 
 networks:
   dokploy-network:
